@@ -1,0 +1,13 @@
+BasedOnStyle: Google
+IndentWidth: 4
+BreakBeforeBraces: Attach
+
+KeepEmptyLinesAtTheStartOfBlocks: true
+
+PenaltyBreakAssignment: 1000000
+BinPackArguments: true
+BinPackParameters: true
+AlignAfterOpenBracket: DontAlign
+AllowAllArgumentsOnNextLine: false
+ColumnLimit: 220
+NamespaceIndentation: All

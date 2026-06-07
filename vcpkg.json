@@ -1,0 +1,15 @@
+{
+  "name": "hello-world",
+  "version-string": "0.0.1",
+  "dependencies": [
+    "commonlibsse-ng-fork",
+    "toml11",
+    "detours"
+  ],
+  "overrides": [
+    {
+      "name": "toml11",
+      "version": "4.4.0"
+    }
+  ]
+}

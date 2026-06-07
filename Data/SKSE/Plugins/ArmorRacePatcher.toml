@@ -1,0 +1,45 @@
+[General]
+EnableArmorAddonPatching = true
+EnableMeshRedirection = true
+
+[Logging]
+Debug = false
+
+[Races]
+Forms = [
+  "UBE_AllRace.esp|005734",
+  "UBE_AllRace.esp|005735",
+  "UBE_AllRace.esp|05A179",
+  "UBE_AllRace.esp|05A17A",
+  "UBE_AllRace.esp|05A184",
+  "UBE_AllRace.esp|05A185",
+  "UBE_AllRace.esp|05A18E",
+  "UBE_AllRace.esp|05A18F",
+  "UBE_AllRace.esp|05A198",
+  "UBE_AllRace.esp|05A199",
+  "UBE_AllRace.esp|05A1A2",
+  "UBE_AllRace.esp|05A1A3",
+  "UBE_AllRace.esp|05A1AC",
+  "UBE_AllRace.esp|05A1AD",
+  "UBE_AllRace.esp|05A1B0",
+  "UBE_AllRace.esp|05A1B1",
+  "UBE_AllRace.esp|07A4D5",
+  "UBE_AllRace.esp|07A4D6",
+]
+
+[Paths]
+Folders = [
+  "!UBE"
+]
+Styles = [
+  "Prefix"
+]
+
+[ArmorAddonFilter]
+RequireArmorCheckRace = true
+ArmorCheckRace = "Skyrim.esm|013746"
+
+# Empty filters match the built-in defaults and the broad UBE xEdit patcher behavior.
+# Add slot names here only if you intentionally want to narrow runtime ARMA patching.
+AllowSlots = []
+BlockSlots = []
