@@ -1,0 +1,56 @@
+name: Build
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-2022
+    env:
+      VCPKG_DEFAULT_BINARY_CACHE: ${{ github.workspace }}\vcpkg-cache
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up vcpkg
+        shell: pwsh
+        run: |
+          git clone https://github.com/microsoft/vcpkg.git "$env:RUNNER_TEMP\vcpkg"
+          & "$env:RUNNER_TEMP\vcpkg\bootstrap-vcpkg.bat" -disableMetrics
+          "VCPKG_ROOT=$env:RUNNER_TEMP\vcpkg" >> $env:GITHUB_ENV
+          New-Item -ItemType Directory -Force "$env:VCPKG_DEFAULT_BINARY_CACHE" | Out-Null
+
+      - name: Cache vcpkg binaries
+        uses: actions/cache@v4
+        with:
+          path: vcpkg-cache
+          key: vcpkg-${{ hashFiles('vcpkg.json', 'vcpkg-configuration.json', 'vcpkg-ports/**', 'cmake/**') }}
+          restore-keys: vcpkg-
+
+      - name: MSVC dev environment
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x64
+
+      - name: Configure
+        run: cmake --preset release-msvc
+
+      - name: Build
+        run: cmake --build --preset release-msvc
+
+      - name: Stage package
+        shell: pwsh
+        run: |
+          $out = "package/SKSE/Plugins"
+          New-Item -ItemType Directory -Force $out | Out-Null
+          Copy-Item build/release-msvc/*.dll $out
+          Copy-Item build/release-msvc/*.pdb $out -ErrorAction SilentlyContinue
+          Copy-Item Data/SKSE/Plugins/*.toml $out
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ArmorRacePatcher
+          path: package/
+          if-no-files-found: error
