@@ -14,6 +14,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: MSVC dev environment
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x64
+
+      - name: Set up Ninja
+        uses: seanmiddleditch/gha-setup-ninja@v6
+
       - name: Set up vcpkg
         shell: pwsh
         run: |
@@ -28,11 +36,6 @@ jobs:
           path: vcpkg-cache
           key: vcpkg-${{ hashFiles('vcpkg.json', 'vcpkg-configuration.json', 'vcpkg-ports/**', 'cmake/**') }}
           restore-keys: vcpkg-
-
-      - name: MSVC dev environment
-        uses: ilammy/msvc-dev-cmd@v1
-        with:
-          arch: x64
 
       - name: Configure
         run: cmake --preset release-msvc

@@ -1,15 +1,15 @@
-vcpkg_from_github(
+# Fetch by commit via git: the commit hash is the integrity check.
+# GitHub's /archive/<sha>.tar.gz bytes are not stable, so SHA512 pins on them break.
+vcpkg_from_git(
     OUT_SOURCE_PATH SOURCE_PATH
-    REPO alandtse/CommonLibVR
+    URL https://github.com/alandtse/CommonLibVR.git
     REF 23bf5512657c16ca3b4e1c9379f47038da26053d
-    SHA512 C9987C0489466891115C646EF4E024B2B7D317937CFD264853EC61828C1FDAB8A4680CEAEA9E5DACB518F933486B6533B30C990148FBFB2E470288CADC2978A9
     HEAD_REF ng
 )
-vcpkg_from_github(
+vcpkg_from_git(
     OUT_SOURCE_PATH SOURCE_PATH2
-    REPO ValveSoftware/openvr
+    URL https://github.com/ValveSoftware/openvr.git
     REF ebdea152f8aac77e9a6db29682b81d762159df7e
-    SHA512 4fb668d933ac5b73eb4e97eb29816176e500a4eaebe2480cd0411c95edfb713d58312036f15db50884a2ef5f4ca44859e108dec2b982af9163cefcfc02531f63
     HEAD_REF master
 )
 
